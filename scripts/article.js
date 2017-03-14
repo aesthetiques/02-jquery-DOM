@@ -2,10 +2,16 @@
 
 var articles = [];
 
-function Article (opts) {
+function Article (title, category, author, authorUrl, publishedOn, body) {
   // TODO: Use the JS object passed in to complete this constructor function:
   // Save ALL the properties of `opts` into `this`
-}
+  this.title = title;
+  this.category = category;
+  this.author = author;
+  this.authorUrl = authorUrl;
+  this.publishedOn = publishedOn;
+  this.body = body;
+};
 
 Article.prototype.toHtml = function() {
   var $newArticle = $('article.template').clone();
@@ -27,7 +33,7 @@ Article.prototype.toHtml = function() {
     5. publication date. */
 
   // Display the date as a relative number of 'days ago'
-  $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
+  $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000) + ' days ago');
   $newArticle.append('<hr>');
   return $newArticle;
 };
