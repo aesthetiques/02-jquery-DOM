@@ -2,15 +2,15 @@
 
 var articles = [];
 
-function Article (title, category, author, authorUrl, publishedOn, body) {
+function Article (articleObject) {
   // TODO: Use the JS object passed in to complete this constructor function:
   // Save ALL the properties of `opts` into `this`
-  this.title = title;
-  this.category = category;
-  this.author = author;
-  this.authorUrl = authorUrl;
-  this.publishedOn = publishedOn;
-  this.body = body;
+  this.title = articleObject.title;
+  this.category = articleObject.category;
+  this.author = articleObject.author;
+  this.authorUrl = articleObject.authorUrl;
+  this.publishedOn = articleObject.publishedOn;
+  this.body = articleObject.body;
 };
 
 Article.prototype.toHtml = function() {
@@ -19,9 +19,17 @@ Article.prototype.toHtml = function() {
   as it now has real data attached to it! We need to account
   for that before this current article gets rendered to our
   DOM. */
+  $newArticle.removeClass('template');
 
   if (!this.publishedOn) $newArticle.addClass('draft');
   $newArticle.data('category', this.category);
+  console.log(this.title);
+
+  $newArticle.find('h1').text(this.title);
+  $newArticle.find('Author Name').text(this.author);
+  $newArticle.find('address>a').html('href', this.authorUrl);
+  $newArticle.find('date').html('date-time', this.publishedOn);
+  $newArticle.find('.article-body').html(this.body);
 
   /* TODO: Now use jQuery to fill in the rest of the current
   template clone with properties from this particular Article instance.
@@ -46,8 +54,10 @@ rawData.sort(function(a,b) {
 rawData.forEach(function(articleObject) {
   // REVIEW: Take a look at this forEach method; This may be the first time we've seen it.
   articles.push(new Article(articleObject));
+  console.log(articleObject);
 });
 
 articles.forEach(function(a) {
   $('#articles').append(a.toHtml());
+  console.log(a);
 });
